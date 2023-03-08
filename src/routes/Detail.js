@@ -1,21 +1,38 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from 'styled-components'
-
-let YellowBtn = styled.button`
-  background : ${ props => props.bg };
-  color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
-  padding : 10px;
-`
 
 function Detail(props){
+
+  let [warnDiv, setWarnDiv]= useState(true);
+  let [count, setCount] = useState(0);
+  let [input, setInput] = useState('');
+
+    useEffect(()=>{
+      const timer = setTimeout(() => {
+        setWarnDiv(false)
+      }, 2000);
+
+      if(/\d/.test(input)){
+        alert("숫자는 입력할 수 없습니다.");
+        setInput('');
+        document.querySelector('#inp').value = '';
+      }
+
+      return () => clearTimeout(timer);
+    }, [count,input])
+
 
     let {id} = useParams();
     const result = props.shoes.filter(item => item.id == id)[0];
 
     return(
       <div className="container">
-        <YellowBtn bg="blue">버튼</YellowBtn>
-        <YellowBtn bg="yellow">버튼</YellowBtn>
+        { warnDiv == true ? 
+          <div className="alert alert-warning">2초 이내 구매시 할인</div> 
+          : null
+        }
+        <input id="inp" onKeyUp={(e)=>{setInput(e.target.value)}}></input>
+        <button onClick={()=>{setCount(count+1)}}>{count}버튼</button>
         <div className="row">
           <div className="col-md-6">
             <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
@@ -30,5 +47,7 @@ function Detail(props){
       </div> 
     )
   }
+
+  
 
 export default Detail;

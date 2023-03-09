@@ -30,6 +30,7 @@ function App() {
       
 
       <div className="main-bg"></div>
+      <dialog>로딩중...</dialog>
         <Routes>
           <Route path="/" element={
             <>
@@ -41,18 +42,21 @@ function App() {
               <button onClick={()=>{ 
                 setBtnClickNum(btnClickNum + 1);
                 let newNum = btnClickNum + 1;
+                const dialog = document.querySelector("dialog");
                 if(newNum <= 3){
+                  dialog.showModal(); //로딩중 다이어로그 표시
                 axios.get(`https://codingapple1.github.io/shop/data${newNum}.json`)
                 .then((result)=>{
                   let copy = [...shoes, ...result.data];
                   setShoes(copy);
+                  dialog.close(); // 로딩중 다이얼로그 감추기
                  }).catch(()=>{
-                  console.log('실패함ㅅㄱ');
+                  dialog.close(); // 로딩중 다이얼로그 감추기
                  })
                 }else{
                   alert('3이상은 안된다...');
                 }
-              }}>버튼</button>
+              }}>더보기</button>
             </>
           } />
           <Route path="/detail/:id" element={<Detail shoes={shoes} />} />

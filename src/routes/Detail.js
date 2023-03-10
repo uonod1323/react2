@@ -66,13 +66,14 @@ function Detail(props){
             <Nav.Link eventKey="link2">버튼2</Nav.Link>
           </Nav.Item>
         </Nav>
-        <TabContent 탭={탭}/>
+        <TabContent 탭={탭} result={result}/>
       </div> 
     )
   }
 
-  function TabContent({탭}){  
+  function TabContent({탭, result}){  
 
+      console.log(result);
       let [fade, setFade] = useState('');
 
       useEffect(()=>{   
@@ -84,7 +85,7 @@ function Detail(props){
       }, [탭])
 
       return <div className={`start ${fade}`}>
-        {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+        {[<div>{result}내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
       </div>
   }
 

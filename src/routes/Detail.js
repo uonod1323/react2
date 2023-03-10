@@ -8,6 +8,7 @@ function Detail(props){
   let [count, setCount] = useState(0);
   let [input, setInput] = useState('');
   let [탭, 탭변경] = useState(0);
+  let [fade, setFade] = useState('');
 
     useEffect(()=>{
       const timer = setTimeout(() => {
@@ -23,12 +24,19 @@ function Detail(props){
       return () => clearTimeout(timer);
     }, [count,input])
 
+    useEffect(()=>{   
+      let fader = setTimeout(()=>{ setFade('end') }, 100)
+      return ()=>{
+        clearTimeout(fader);
+        setFade('');
+      }
+    }, [])
 
     let {id} = useParams();
     const result = props.shoes.filter(item => item.id == id)[0];
 
     return(
-      <div className="container">
+      <div className={ `container start ${fade}` }>
         { warnDiv == true ? 
           <div className="alert alert-warning">2초 이내 구매시 할인</div> 
           : null

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
 
@@ -66,14 +66,13 @@ function Detail(props){
             <Nav.Link eventKey="link2">버튼2</Nav.Link>
           </Nav.Item>
         </Nav>
-        <TabContent 탭={탭} result={result}/>
+        <TabContent 탭={탭}/>
       </div> 
     )
   }
 
-  function TabContent({탭, result}){  
+  function TabContent({탭}){  
 
-      console.log(result);
       let [fade, setFade] = useState('');
 
       useEffect(()=>{   
@@ -85,7 +84,7 @@ function Detail(props){
       }, [탭])
 
       return <div className={`start ${fade}`}>
-        {[<div>{result}내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+        {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
       </div>
   }
 

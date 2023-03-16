@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart } from './../store/cartStore.js';
 
 function Detail(props){
 
@@ -9,6 +11,9 @@ function Detail(props){
   let [input, setInput] = useState('');
   let [탭, 탭변경] = useState(0);
   let [fade, setFade] = useState('');
+
+  let cartStore = useSelector((state)=>{return state.cartStore});
+  let dispatch = useDispatch();
 
     useEffect(()=>{
       const timer = setTimeout(() => {
@@ -51,7 +56,10 @@ function Detail(props){
             <h4 className="pt-5">{result.title}</h4>
             <p>{result.content}</p>
             <p>{result.price}원</p>
-            <button className="btn btn-danger">주문하기</button> 
+            <button className="btn btn-danger" onClick={()=>{
+              console.log(cartStore);
+              dispatch(addCart(result));
+            }}>주문하기</button> 
           </div>
         </div>
 

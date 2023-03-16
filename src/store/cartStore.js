@@ -12,7 +12,8 @@ let cartStore = createSlice({
             state[action.payload].count += 1
         },
         addCart(state, action){
-            console.log(state[0]);
+            let aaa = JSON.stringify([...state])
+            console.log(aaa);
             debugger;
         }
     }

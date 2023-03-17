@@ -57,7 +57,6 @@ function Detail(props){
             <p>{result.content}</p>
             <p>{result.price}원</p>
             <button className="btn btn-danger" onClick={()=>{
-              console.log(cartStore);
               dispatch(addCart(result));
             }}>주문하기</button> 
           </div>

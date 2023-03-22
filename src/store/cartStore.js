@@ -5,22 +5,32 @@ let num;
 let cartStore = createSlice({
     name : 'cart',
     initialState : [
-        {id : 0, name : 'White and Black', count : 2},
-        {id : 2, name : 'Grey Yordan', count : 1}
+        {id : 0, name : 'White and Black', count : 0},
+        {id : 2, name : 'Grey Yordan', count : 0}
     ],
     reducers : {
         changeCount(state, action){
-            duplCheck(state, action.payload); //중복체크 확인
-            debugger;
-            state[num].count++;
+            duplCheck(state, action.payload[0]); //중복체크 확인
+            if(action.payload[1] === '+'){
+                state[num].count++;
+            }else{
+                //1과 같으면 0이 되버리므로 뺄 필요도 없다 걍 상품삭제 해주세요
+                if(state[num].count <= 1){
+                    let State = JSON.parse(JSON.stringify(state));
+                    const newFilter = State.filter(item => item.id !== action.payload[0]) // 화면단에서 가져온 아이디와 같은 상품은 제거해 줍니다.
+                    return newFilter;
+                }else{
+                    //수량이 1 이상이면 수량만 변경하면 됨
+                    state[num].count--;
+                }
+            }
         },
         addCart(state, action){
             duplCheck(state, action.payload.id); //중복체크 확인
+            debugger;
             if(num == action.payload.id){
                 state[num].count++;
-                console.log(JSON.parse(JSON.stringify(state)));
             }else{
-                debugger;
                 let newState = JSON.parse(JSON.stringify(state));
                 let addArray = action.payload;
                 newState.push(addArray);

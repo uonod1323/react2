@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import { createContext, useState } from 'react';
 import data from './data.js'
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet, useParams } from 'react-router-dom'
 import Detail from './routes/Detail.js'
 import Cart from './routes/Cart.js'
 import axios from 'axios'
@@ -69,7 +69,7 @@ function App() {
             </>
           } />
           <Route path="/detail/:id" element={
-            <Detail shoes={shoes}/> 
+            <Detail shoes={shoes}/>   
           }/>
 
           <Route path="/cart" element={<Cart/>}/>

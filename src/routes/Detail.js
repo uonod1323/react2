@@ -38,6 +38,30 @@ function Detail(props){
     }, [])
 
     let {id} = useParams();
+
+    useEffect(()=>{   
+      
+
+      //아직 로컬스토리지에 key로 data라는 값이 아예 없는 경우 (배열부터 추가)
+      if(!localStorage.getItem('viewData')){
+        let obj = [{'id' : id}]
+        localStorage.setItem('viewData', JSON.stringify(obj))
+        let 꺼낸거 = localStorage.getItem('viewData')
+        console.log(JSON.parse(꺼낸거));
+      }else{
+        //로컬스토리지에 key로 data라는 값이 있을 경우 (배열 내의 항목을 추가)
+        let arr = JSON.parse(localStorage.getItem('viewData'));
+        if(arr.some(item => item.id == id)){ //상품이 이미 있는지 없는지 검사. 있으면 true고 없으면 false
+          return;
+        }else{
+          arr.push({'id' : id});
+          localStorage.setItem('viewData', JSON.stringify(arr));
+        }
+      }
+
+      return;
+    }, [])
+
     const result = props.shoes.filter(item => item.id == id)[0];
 
     return(

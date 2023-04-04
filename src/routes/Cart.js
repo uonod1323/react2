@@ -2,16 +2,32 @@ import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeAge } from './../store/userSlice.js'
 import { changeCount } from '../store/cartStore.js';
+import { memo, useMemo, useState } from 'react';
+
+let Child = memo(function(){
+    console.log('재랜');
+    return <div>자식임</div>
+})
+
+function 함수(){
+
+}
 
 function Cart(){
+
+    let result = 함수();
+    useMemo(()=>{return 함수()}, [state])
 
     let state = useSelector((state)=>{return state})
     let cart = useSelector((state)=>{return state.cartStore})
     let dispatch = useDispatch()
+    let [count, setCount] = useState(0)
 
     return (
         <div>
+            <Child count={count}></Child>
             <h4>{state.user.name} {state.user.age} 의 장바구니</h4>
+            <button onClick={()=>{setCount(count+1)}}>+</button>
             <button onClick={()=>{ dispatch(changeAge(100))}}>버튼</button>
             <Table>
                 <thead>

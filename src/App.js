@@ -7,6 +7,7 @@ import { Routes, Route, Link, useNavigate, Outlet, useParams } from 'react-route
 import Detail from './routes/Detail.js'
 import Cart from './routes/Cart.js'
 import axios from 'axios'
+import { useQuery } from "react-query"
 
 function App() {
 
@@ -20,6 +21,12 @@ function App() {
 
   let [btnClickNum, setBtnClickNum] = useState(1);
   let navigate = useNavigate();
+
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+      return a.data
+    })
+  )
 
   return (
     <div className="App">
